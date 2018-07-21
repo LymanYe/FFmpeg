@@ -1,4 +1,4 @@
-package com.lyman.camerapreview.preview;
+package com.lyman.camerapreviewrecord.preview;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

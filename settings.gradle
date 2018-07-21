@@ -1,2 +1,2 @@
-include ':app' ,':camerapreview'
-//,':audioplayer', ':videoplayer',
+include ':app',":camerapreviewrecord"
+//,':audioplayer', ':videoplayer',':camerapreview',
