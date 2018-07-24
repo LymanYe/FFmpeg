@@ -10,6 +10,22 @@
 
 static MVRecordingPreviewController *previewController = 0;
 
+JNIEXPORT void JNICALL Java_com_lyman_camerapreviewrecord_preview_LPreviewScheduler_startEncoding
+		(JNIEnv * env, jobject obj, jint width, jint height, jint videoBitRate, jint frameRate, jboolean useHardWareEncoding, jstring h264FilePathParam) {
+	if(NULL != previewController) {
+		const char* h264FilePath = env->GetStringUTFChars(h264FilePathParam, NULL);
+		previewController->startEncoding(h264FilePath, width, height, videoBitRate, frameRate, useHardWareEncoding);
+		env->ReleaseStringUTFChars(h264FilePathParam, h264FilePath);
+	}
+}
+
+JNIEXPORT void JNICALL Java_com_lyman_camerapreviewrecord_preview_LPreviewScheduler_stopEncoding
+		(JNIEnv * env, jobject obj) {
+	if(NULL != previewController) {
+		previewController->stopEncoding();
+	}
+}
+
 JNIEXPORT void JNICALL Java_com_lyman_camerapreviewrecord_preview_LPreviewScheduler_switchCameraFacing
 (JNIEnv * env, jobject obj) {
 	if(NULL != previewController) {

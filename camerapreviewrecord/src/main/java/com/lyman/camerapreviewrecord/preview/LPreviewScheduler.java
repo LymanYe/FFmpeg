@@ -95,6 +95,9 @@ public class LPreviewScheduler
 	public native void destroyWindowSurface();
 	public native void destroyEGLContext();
 
+	public native void startEncoding(int width, int height, int videoBitRate, int frameRate, boolean useHardWareEncoding, String outputPath);
+	public native void stopEncoding();
+
 	/**
 	 * 当Camera捕捉到了新的一帧图像的时候会调用这个方法,因为更新纹理必须要在EGLThread中,
 	 * 所以配合下updateTexImageFromNative使用

@@ -1,6 +1,5 @@
 #include "./mv_recording_preview_controller.h"
 #include "../libcommon/CommonTools.h"
-#include "../libcommon/message_queue/message_queue.h"
 
 #define LOG_TAG "MVRecordingPreviewController"
 
@@ -10,6 +9,7 @@ MVRecordingPreviewController::MVRecordingPreviewController(){
 	startTime = -1;
 	eglCore = NULL;
 	_window = NULL;
+    encoder = NULL;
 	previewSurface = EGL_NO_SURFACE;
 	queue = new MessageQueue("MVRecordingPreviewController message queue");
 	handler = new MVRecordingPreviewHandler(this, queue);
@@ -204,6 +204,10 @@ void MVRecordingPreviewController::renderFrame() {
 		if (previewSurface != EGL_NO_SURFACE) {
 			this->draw();
 		}
+
+        if (isEncoding) {
+            encoder->encode();
+        }
 	}
 }
 
@@ -329,5 +333,41 @@ void MVRecordingPreviewController::startCameraPreview() {
 	if (g_jvm->DetachCurrentThread() != JNI_OK) {
 		LOGE("%s: DetachCurrentThread() failed", __FUNCTION__);
 		return;
+	}
+}
+
+void MVRecordingPreviewController::startEncoding(const char* h264FilePath, int width, int height, int videoBitRate, float frameRate, bool useHardWareEncoding) {
+	if(NULL != encoder){
+		delete encoder;
+		encoder = NULL;
+	}
+	if (useHardWareEncoding){
+		encoder = new HWEncoderAdapter(g_jvm, obj);
+	} else {
+		encoder = new SoftEncoderAdapter();
+	}
+	encoder->init(h264FilePath, width, height, videoBitRate, frameRate);
+	if (handler)
+		handler->postMessage(new Message(MSG_START_RECORDING));
+}
+
+void MVRecordingPreviewController::stopEncoding() {
+	LOGI("stopEncoding");
+	if (handler)
+		handler->postMessage(new Message(MSG_STOP_RECORDING));
+}
+
+void MVRecordingPreviewController::startRecording(){
+	encoder->createEncoder(eglCore, renderer->getInputTexId());
+	isEncoding = true;
+}
+
+void MVRecordingPreviewController::stopRecording(){
+	LOGI("stopRecording....");
+	isEncoding = false;
+	if (encoder) {
+		encoder->destroyEncoder();
+		delete encoder;
+		encoder = NULL;
 	}
 }

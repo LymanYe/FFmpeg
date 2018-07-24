@@ -45,6 +45,41 @@ target_link_libraries(
                       EGL
                       OpenSLES)
 
+include_directories(${PATH_TO_ROOT}/3rdparty/ffmpeg/include)
+add_library(
+              libffmpeg
+              SHARED
+              IMPORTED
+)
+
+set_target_properties(libffmpeg
+                      PROPERTIES IMPORTED_LOCATION
+                      ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a/libffmpeg.so
+)
+
+file(GLOB FILES_LIB_VIDEO_ENCODER "${PATH_TO_ROOT}/video_encoder/*.cpp")
+file(GLOB FILES_LIB_VIDEO_ENCODER_HW "${PATH_TO_ROOT}/video_encoder/hw_encoder/*.cpp")
+file(GLOB FILES_LIB_VIDEO_ENCODER_SOFT "${PATH_TO_ROOT}/video_encoder/soft_encoder/*.cpp")
+file(GLOB FILES_LIB_VIDEO_ENCODER_SOFT_COLOR "${PATH_TO_ROOT}/video_encoder/soft_encoder/color_conversion/*.cpp")
+
+add_library( # Sets the name of the library.
+             videoencoder
+
+             # Sets the library as a shared library.
+             SHARED
+
+             # Provides a relative path to your source file(s).
+             ${FILES_LIB_VIDEO_ENCODER}
+             ${FILES_LIB_VIDEO_ENCODER_HW}
+             ${FILES_LIB_VIDEO_ENCODER_SOFT}
+             ${FILES_LIB_VIDEO_ENCODER_SOFT_COLOR}
+             )
+
+target_link_libraries(
+                      videoencoder
+                      commontool
+                      libffmpeg)
+
 include_directories(${PATH_TO_ROOT}/camera_preview/)
 
 file(GLOB FILES_LIB_CAMERA_PREVIEW "${PATH_TO_ROOT}/camera_preview/*.cpp")
@@ -63,5 +98,5 @@ add_library( # Sets the name of the library.
 # Include libraries needed for renderer lib
 target_link_libraries(
                       camerapreview
-                      commontool)
+                      videoencoder)
 

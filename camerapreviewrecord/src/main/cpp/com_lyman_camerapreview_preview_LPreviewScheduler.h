@@ -8,6 +8,21 @@
 extern "C" {
 #endif
 
+/*
+ * Class:     com_phuket_tour_camera_preview_ChangbaRecordingPreviewScheduler
+ * Method:    startEncoding
+ * Signature: (IIIIZ)V
+ */
+JNIEXPORT void JNICALL Java_com_lyman_camerapreviewrecord_preview_LPreviewScheduler_startEncoding
+        (JNIEnv *, jobject, jint, jint, jint, jint, jboolean, jstring);
+
+/*
+ * Class:     Java_com_lyman_camerapreviewrecord_preview_LPreviewScheduler
+ * Method:    stopEncoding
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_lyman_camerapreviewrecord_preview_LPreviewScheduler_stopEncoding
+        (JNIEnv *, jobject);
 
 /*
  * Class:     com_lyman_camerapreview_preview_LRecordingPreviewScheduler

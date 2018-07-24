@@ -12,6 +12,9 @@
 #include "egl_core/egl_core.h"
 #include "message_queue/message_queue.h"
 #include "message_queue/handler.h"
+#include "../video_encoder/video_encoder_adapter.h"
+#include "../video_encoder/hw_encoder/hw_encoder_adapter.h"
+#include "../video_encoder/soft_encoder/soft_encoder_adapter.h"
 
 #define CAMERA_FACING_BACK										0
 #define CAMERA_FACING_FRONT										1
@@ -21,6 +24,8 @@
         MSG_EGL_THREAD_CREATE,
 		MSG_EGL_CREATE_PREVIEW_SURFACE,
         MSG_SWITCH_CAMERA_FACING,
+		MSG_START_RECORDING,
+		MSG_STOP_RECORDING,
 		MSG_EGL_DESTROY_PREVIEW_SURFACE,
         MSG_EGL_THREAD_EXIT
     };
@@ -90,8 +95,13 @@ protected:
     void updateTexImage();
     void releaseCamera();
     void deleteGlobalRef();
-
+protected:
+	bool isEncoding;
+	VideoEncoderAdapter* encoder;
 public:
+	void startEncoding(const char* h264FilePath, int width, int height, int videoBitRate, float frameRate, bool useHardWareEncoding);
+	void stopEncoding();
+
 	void createWindowSurface(ANativeWindow* window);
 	void destroyWindowSurface();
 
@@ -103,6 +113,8 @@ public:
     void destroyPreviewSurface();
     void switchCamera();
     void renderFrame();
+	void startRecording();
+	void stopRecording();
 };
 
 
@@ -126,6 +138,12 @@ class MVRecordingPreviewHandler: public Handler {
 				break;
 			case MSG_SWITCH_CAMERA_FACING:
 				previewController->switchCamera();
+				break;
+			case MSG_START_RECORDING:
+				previewController->startRecording();
+				break;
+			case MSG_STOP_RECORDING:
+				previewController->stopRecording();
 				break;
 			case MSG_EGL_DESTROY_PREVIEW_SURFACE:
 				previewController->destroyPreviewSurface();
