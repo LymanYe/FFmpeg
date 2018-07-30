@@ -70,7 +70,6 @@ void* SoftEncoderAdapter::startDownloadThread(void* ptr) {
 	SoftEncoderAdapter* softEncoderAdapter = (SoftEncoderAdapter *) ptr;
 	softEncoderAdapter->renderLoop();
 	pthread_exit(0);
-	return 0;
 }
 
 void SoftEncoderAdapter::renderLoop() {
@@ -183,7 +182,6 @@ void* SoftEncoderAdapter::startEncodeThread(void* ptr) {
 	SoftEncoderAdapter* softEncoderAdapter = (SoftEncoderAdapter *) ptr;
 	softEncoderAdapter->startEncode();
 	pthread_exit(0);
-	return 0;
 }
 
 void SoftEncoderAdapter::startEncode() {

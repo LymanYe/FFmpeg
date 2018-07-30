@@ -1,5 +1,5 @@
 #include "./mv_recording_preview_controller.h"
-#include "../libcommon/CommonTools.h"
+
 
 #define LOG_TAG "MVRecordingPreviewController"
 

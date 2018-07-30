@@ -4,7 +4,6 @@
 #include "CommonTools.h"
 #include "./color_conversion/color_conversion.h"
 #include <vector>
-
 #include "yuy2_video_frame_pool.h"
 
 extern "C" {
@@ -42,7 +41,7 @@ private:
 	uint8_t* yuy2_picture_buf;
 	AVFrame* video_yuy2_frame;
 
-    FILE* h264File;
+	FILE* h264File;
 	bool isSPSUnWriteFlag;
 	const int delta = 30;
 
@@ -50,11 +49,11 @@ private:
 	void allocAVFrame();
 public:
 	VideoX264Encoder();
-    virtual ~VideoX264Encoder();
+	virtual ~VideoX264Encoder();
 
-    int init(int width, int height, int videoBitRate, float frameRate, FILE* h264File);
-    int encode(LiveVideoFrame *videoFrame);
-    void pushToQueue(byte* buffer, int size, int timeMills, int64_t pts, int64_t dts);
-    int destroy();
+	int init(int width, int height, int videoBitRate, float frameRate, FILE* h264File);
+	int encode(LiveVideoFrame *videoFrame);
+	void pushToQueue(byte* buffer, int size, int timeMills, int64_t pts, int64_t dts);
+	int destroy();
 };
 #endif // VIDEO_ENCODER_X264_ENCODER_H

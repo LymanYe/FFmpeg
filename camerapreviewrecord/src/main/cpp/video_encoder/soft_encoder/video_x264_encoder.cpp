@@ -20,6 +20,7 @@ int VideoX264Encoder::init(int width, int height, int videoBitRate, float frameR
 	this->allocAVFrame();
 	this->h264File = h264File;
 	isSPSUnWriteFlag = true;
+    return 0;
 }
 
 int VideoX264Encoder::encode(LiveVideoFrame * videoFrame) {
@@ -50,6 +51,7 @@ int VideoX264Encoder::destroy() {
 	avcodec_close(pCodecCtx);
 	av_free(pFrame);
 	av_free(picture_buf);
+    return 0;
 }
 
 int VideoX264Encoder::allocVideoStream(int width, int height, int videoBitRate, float frameRate) {

@@ -143,7 +143,7 @@ void HWEncoderAdapter::encode() {
 	if(EGL_NO_SURFACE != encoderSurface){
 		eglCore->makeCurrent(encoderSurface);
 		renderer->renderToView(texId, videoWidth, videoHeight);
-		eglCore->setPresentationTime(encoderSurface, ((khronos_stime_nanoseconds_t) curTime) * 1000000);
+		//eglCore->setPresentationTime(encoderSurface, ((khronos_stime_nanoseconds_t) curTime) * 1000000);
 		handler->postMessage(new Message(FRAME_AVAILIBLE));
 		if (!eglCore->swapBuffers(encoderSurface)) {
 			LOGE("eglSwapBuffers(encoderSurface) returned error %d", eglGetError());

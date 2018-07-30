@@ -11,6 +11,7 @@ public class LPreviewView extends SurfaceView implements Callback {
 	
 	public LPreviewView(Context context) {
 		super(context);
+		setKeepScreenOn(true);
 		SurfaceHolder surfaceHolder = getHolder();
 		surfaceHolder.addCallback(this);
 		surfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);

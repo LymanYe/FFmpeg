@@ -1,6 +1,5 @@
 #ifndef HOST_GPU_COPIER_H
 #define HOST_GPU_COPIER_H
-#include "./../libcommon/CommonTools.h"
 #include <GLES2/gl2.h>
 #include <GLES2/gl2ext.h>
 #include "egl_core/gl_tools.h"

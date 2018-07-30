@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 
+import com.lyman.camerapreviewrecord.encoder.MediaCodecSurfaceEncoder;
+
 public class LPreviewScheduler
 		implements LVideoCamera.LVideoCameraCallback, LPreviewView.LPreviewViewCallback {
 	static {
@@ -127,6 +129,41 @@ public class LPreviewScheduler
 	/** 释放掉当前的Camera **/
 	public void releaseCameraFromNative(){
 		mCamera.releaseCamera();
+	}
+
+	public void onMemoryWarning(int queueSize) {
+		Log.d("problem", "onMemoryWarning called");
+	}
+
+	// encoder
+	protected MediaCodecSurfaceEncoder surfaceEncoder;
+	Surface surface = null;
+
+	public void createMediaCodecSurfaceEncoderFromNative(int width, int height, int bitRate, int frameRate) {
+		try {
+			surfaceEncoder = new MediaCodecSurfaceEncoder(width, height, bitRate, frameRate);
+			surface = surfaceEncoder.getInputSurface();
+		} catch (Exception e) {
+			Log.e("problem", "createMediaCodecSurfaceEncoder failed");
+		}
+	}
+
+	public long pullH264StreamFromDrainEncoderFromNative(byte[] returnedData) {
+		return surfaceEncoder.pullH264StreamFromDrainEncoderFromNative(returnedData);
+	}
+
+	public long getLastPresentationTimeUsFromNative() {
+		return surfaceEncoder.getLastPresentationTimeUs();
+	}
+
+	public Surface getEncodeSurfaceFromNative() {
+		return surface;
+	}
+
+	public void closeMediaCodecCalledFromNative() {
+		if (null != surfaceEncoder) {
+			surfaceEncoder.shutdown();
+		}
 	}
 	
 }
