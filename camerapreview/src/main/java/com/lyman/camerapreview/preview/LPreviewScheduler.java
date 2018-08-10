@@ -1,4 +1,4 @@
-package com.lyman.camerapreviewrecord.preview;
+package com.lyman.camerapreview.preview;
 
 import android.hardware.Camera.CameraInfo;
 import android.util.Log;

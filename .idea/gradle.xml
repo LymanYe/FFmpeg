@@ -9,7 +9,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/audioplayer" />
+            <option value="$PROJECT_DIR$/camerapreview" />
             <option value="$PROJECT_DIR$/camerapreviewrecord" />
+            <option value="$PROJECT_DIR$/videoplayer" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

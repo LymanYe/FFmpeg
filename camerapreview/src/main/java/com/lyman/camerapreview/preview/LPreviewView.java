@@ -1,4 +1,4 @@
-package com.lyman.camerapreviewrecord.preview;
+package com.lyman.camerapreview.preview;
 
 import android.content.Context;
 import android.view.Surface;

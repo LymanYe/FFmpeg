@@ -1,4 +1,4 @@
-package com.lyman.camerapreviewrecord.preview;
+package com.lyman.camerapreview.preview;
 
 public class CameraConfigInfo {
 	private int cameraFacingId;

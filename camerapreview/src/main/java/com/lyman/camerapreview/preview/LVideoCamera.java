@@ -1,4 +1,4 @@
-package com.lyman.camerapreviewrecord.preview;
+package com.lyman.camerapreview.preview;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -12,6 +12,7 @@ import android.hardware.Camera.Size;
 import android.os.Build;
 import android.util.Log;
 import android.view.Surface;
+
 
 import java.lang.reflect.Field;
 import java.util.List;
