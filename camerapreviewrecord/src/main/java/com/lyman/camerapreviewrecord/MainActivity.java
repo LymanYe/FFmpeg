@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
                     isEncoding = false;
                     text = "开始录制";
                     previewScheduler.stopEncoding();
+                    Toast.makeText(MainActivity.this,"/mnt/sdcard/preview_soft.h264查看",Toast.LENGTH_SHORT).show();
                 }
                 recordBtn.setText(text);
             }

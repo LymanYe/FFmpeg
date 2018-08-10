@@ -1,3 +1,3 @@
 <resources>
-    <string name="app_name">CameraPreviewRecord</string>
+    <string name="app_name">OpenGL渲染预览FFMpeg编码录制存储</string>
 </resources>
